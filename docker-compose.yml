@@ -1,0 +1,23 @@
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/usr/src/app
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URL=mongodb://Mathieu:1234@mongodb:27017/
+  mongodb:
+    image: mongo
+    ports:
+      - '27017:27017'
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=Mathieu
+      - MONGO_INITDB_ROOT_PASSWORD=1234
+  frontend:
+    image: izimio/kdb-ui:taker-academy-ui-1.0.0
+    ports:
+      - '3000:3000'
